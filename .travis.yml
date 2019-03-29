@@ -7,7 +7,7 @@ branches:
 
 script:
   - Rscript -e 'servr:::knit_maybe(c(".", "_source", "_posts"), c(".", "_posts", "_posts"), "build.R", "jekyll")'
-  
+
 deploy:
   provider: pages
   skip_cleanup: true
