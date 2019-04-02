@@ -1,6 +1,6 @@
 ---
-title: "Is it possible to make a million on Fiverr?"
-subtitle: "Insights from analysing 9 Niches on Fiverr"
+title: "Insights from analysing 9 Niches on Fiverr"
+subtitle: ""
 output: 
   html_document: default
   md_document: default
@@ -38,95 +38,6 @@ source('include/plots.R', encoding='utf-8')
 
 
 
-```{r}
-products.df <- get.products(DATABASE, MONGO_URI, params$filter) 
-niches.df <- get.niches(DATABASE, MONGO_URI, params$filter)
-market.entry.barrier.data.1 <- get.market.entry.data.1(DATABASE, MONGO_URI, params$filter)
-market.entry.barrier.data.2 <- get.market.entry.data.2(DATABASE, MONGO_URI, params$filter)
-market.entry.barrier.data.3 <- get.market.entry.data.3(DATABASE, MONGO_URI, params$filter)
-```
-
-```{r}
-example.top.seller.gigs.df <- read.csv('../_data/top_seller_gigs.csv') %>%
-  mutate(reviewed_revenue=start_price*reviews_count) 
-reported.revenue.df <- read_csv('../_data/reported_revenue.csv')
-
-example.top.seller.revenue.df <- example.top.seller.gigs.df %>% select(real_name, username, gig, reviewed_revenue) %>% 
-  group_by(real_name, username) %>%
-  summarise(total_reviewed_revenue=sum(reviewed_revenue)) %>% inner_join(reported.revenue.df)
-```
-
-
-
-
-
-```{r}
-levels <- (example.top.seller.revenue.df %>% arrange(reported_revenue))$real_name
-
-example.top.seller.revenue.df %>%
-  rename(`Total Reviewed Revenue`=total_reviewed_revenue) %>%
-  rename(`Reported Revenue`=reported_revenue) %>%
-  gather(-username, -real_name, key='revenue_type', value='val') %>%
-  ggplot(aes(x=real_name, y=val, group=revenue_type,fill=revenue_type))+
-  geom_bar(stat='identity', position = 'dodge')  +
-  scale_fill_tableau()+
-  scale_x_discrete(limits=levels)+
-  coord_flip()+
-  bbc_style()
-```
-```{r}
-
-top_gigs <- example.top.seller.gigs.df %>%
-  group_by(username) %>%
-  top_n(4, reviewed_revenue) %>%
-  ungroup()
-
-levels <- (top_gigs %>% arrange(real_name, reviewed_revenue))$gig
-
-top_gigs %>%
-  ggplot(aes(x=gig, y=reviewed_revenue, fill=real_name))+
-  geom_bar(stat='identity') +
-  scale_fill_tableau() +
-  scale_y_continuous(labels=comma, breaks=seq(0, 500000, 50000))+
-  scale_x_discrete(limits=levels)+
-  coord_flip() +
-  bbc_style()
-```
-
-
-
-```{r}
-get.products(DATABASE, MONGO_URI, '{}') %>% as_tibble() %>% 
-  mutate(price_start=replace_na(price_start,0), score_num=replace_na(score_num,0), revenue=price_start*score_num,title_length=nchar(title)) %>%
-  distinct(title, .keep_all = T) %>%
-  head(10) %>%
-  ggplot(aes(x=reorder(title, revenue), y=revenue))+
-  geom_bar(stat='identity', fill='#4E79A7') +
-  scale_y_continuous(labels = comma)+
-  coord_flip()+
-  bbc_style()
-```
-
-
-
-
-
-
-
-
-
-The story of [How a dad made almost 1 million on Fiverr](https://www.cnbc.com/2018/04/24/how-this-dad-made-almost-1-million-on-fiverr.html?__source=msn%7Cmoney%7Cinline%7Cstory%7C&par=msn&doc=105300315) inspired me to analyse data from fiverr to gain insights how realistic a story like this. So I was looking for more stories from people to get an idea what they earn and what they are doing. 
-
-| Seller | Type of service | Income |
-| ------ | --------------- | -----: |
-| [Joel Young](https://www.cnbc.com/2018/04/24/how-this-dad-made-almost-1-million-on-fiverr.html?__source=msn%7Cmoney%7Cinline%7Cstory%7C&par=msn&doc=105300315)| Voice Over | $1,000,0000|
-|[Charmaine Pocek](https://www.forbes.com/sites/laurashin/2016/05/31/how-these-3-people-make-6-figures-a-year-on-fiverr/)| Resume writing | $480,000|
-| [Levi Newman](https://www.forbes.com/sites/laurashin/2016/05/31/how-these-3-people-make-6-figures-a-year-on-fiverr/)|Copywriting| $180,000 |
-| [Redd Horrocks](https://www.forbes.com/sites/laurashin/2016/05/31/how-these-3-people-make-6-figures-a-year-on-fiverr/)|Voice Over| $180,000 |
-|[Alex Fasulo](https://www.msn.com/en-us/money/bills-to-pay/how-this-25-year-old-freelancer-made-dollar150000-in-6-months-off-fiverr/ar-AAzkNOA)| Press Release Writing | $150,000 |
-|[David Feldman](https://www.cnbc.com/2018/12/18/how-this-38-year-old-is-making-6-figures-freelancing-on-fiverr.html)|Copywriting|$100,000|
-
-I identified more niches with [The 8 highest-paying side hustles on Fiverr](https://www.cnbc.com/2018/04/30/the-8-highest-paying-side-hustles-on-fiverr.html) 
 
 I entered the numbers game for these niches:
 
