@@ -34,9 +34,10 @@ layout: default
       <header>
         {% if page.title %}<h1 class="page__title" itemprop="headline">
           {{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
-        {% if page.subtitle %}<h4>
-          {{ page.subtitle | markdownify | remove: "<p>" | remove: "</p>" }}</h4>{% endif %}
-        {% if page.image %}<img src="{{ page.image }}"><br>{{ page.image_caption }}{% endif %}
+        {% if page.subtitle %}<h3>
+          {{ page.subtitle | markdownify | remove: "<p>" | remove: "</p>" }}</h3>{% endif %}
+        {% if page.image %}<img
+          src="/assets/img/{{ page.image }}"><br><small>{{ page.image_caption }}</small>{% endif %}
         {% if page.read_time %}
         <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}</p>
         {% endif %}
