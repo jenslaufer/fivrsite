@@ -1,0 +1,122 @@
+---
+title: "Insights from analysing 9 Niches on Fiverr"
+subtitle: ""
+output: 
+  html_document: default
+  md_document: default
+params:
+  # filter: '{"keyword": {"$in": ["airbnb", "alibaba", "amazon", "amazon fba", "data analysis", "data science", "fiverr", "java programming", "market analysis", "market research", "passive income", "python programming", "r programming", "reporting" , "scraping", "six figures"]}}'
+  filter: '{"keyword": {"$in": ["Voiceover", "Copywriting", "Resume Writing", "Press release Writing", "Video Marketing", "Website Building", "Mobile App Development", "Graphic Design", "seo"]}}'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.height = 10, fig.width = 20)
+```
+
+
+
+
+```{r}
+MONGO_URI <- "mongodb://localhost/fiverr"
+DATABASE <- "fiverr"
+cpation.text <- "by Jens Laufer (https://www.fiverr.com/jens_laufer)"
+label.color <- "black"
+arrow.color <- "#BAB0AC"
+label.size <- 7
+DATA_FILE <- '../_data/gigs.csv'
+```
+
+```{r}
+devtools::install_github('bbc/bbplot')
+```
+
+
+```{r}
+source('include/data.R',encoding = 'utf-8')
+source('include/plots.R', encoding='utf-8')
+```
+
+
+
+
+I entered the numbers game for these niches:
+
+- Voiceover
+- Copywriting
+- Resume Writing
+- Press release Writing
+- Video Marketing
+- Website Building
+- Mobile App Development
+- Graphic Design
+- SEO
+
+
+
+## Demand
+
+I counted the total number of reviews on the first search page for to get an idea of the demand. "Voiceover" has the highest demand followed by "Graphic Design" nd by "SEO". The demand for "Mobile App Development", "Video Marketing" and "Press Release Writing" is mucher lower. This doesn't mean that these niches are uninteresting, because there might be room for new Gigs. It's surprising "Mobile App Development" is low as I thought that fiverr is the to-go for platform for programing tasks.
+
+```{r}
+get.demand.plot(DATABASE, MONGO_URI, params$filter)
+```
+
+
+
+## Revenue
+
+I aggregated a new metric for the revenue potential. I multiplied the starting price of a gig with its number of reviews.  This is not an exact estimation what you can earn, but the metric lets us compare the revenue potential of the niches. Sellers offering "SEO", "Voiceover" and "Website Building" seem to make the most money. It's surprising that sellers offering "Graphic Design" are making much less money although there was a high demand for it. The starting prices are very low. It could be that there is a lot of competition in this niche. On the other hand  website builders make good money. The demand for it was not so high, but you can charge more in this niche obviously.
+
+```{r}
+get.revenue.potential.plot(DATABASE, MONGO_URI, params$filter)
+```
+
+
+
+## Supply
+
+I checked the supply for the niches by taking the number of Gigs for the niche keywords. It's interresting that there are so many gigs for "Mobile App Development" although the  revenue potential is not so high. There are also many Voice-Over-Artists and SEO consultants in the market, but you can earn good money in the niches. Interesting is that there are just a few copywriters on fiverr, although the the revenue potential is not bad.
+
+```{r}
+
+get.supply.plot(DATABASE, MONGO_URI, params$filter)
+```
+
+## Competition
+
+We mix the demand and supply to get an idea how much competition is in the niche markets. You can see something we saw already before, there is not that much competition in the market for copywriters and for Video marketers, which is unexpected. On the other the market for "Mobile App Developers" is very tough. 
+```{r}
+
+get.competition.plot(DATABASE, MONGO_URI, params$filter)
+```
+
+## Market Entry Barrier
+
+Another metric that is entry how difficult it is to rank on the first page of search page. It is influenced by the competition, but also by algorithmn that fiverr uses to decide which gig is on page one. I aggregated the ratio of unrated Gigs on the first search page for this. The higher the percentage of unrated gigs is the easy it is to get to search page one, which helps you to get a share of the pie. 
+
+```{r}
+get.market.entry.data.2.plot(DATABASE, MONGO_URI, params$filter)
+```
+
+
+
+## Overall Rank
+
+
+I created an overall rank to combine the metrics revenue potential, competition and market entry barrier. The three metrics are weighted differently. The revenue potential goes 50% into the metric, the competition is weighted 30% and the market entry barrier 20%. We have the highest score for "seo", "Voiceover" and "Website Building".
+
+
+```{r}
+get.overall.score.plot(DATABASE, MONGO_URI, params$filter)
+```
+
+
+
+
+```{r, fig.width=20, fig.height=35, eval=F}
+grid.arrange(revenue.potential, competition, market.entry.barrier.2, overall.score,layout_matrix=rbind(c(1,1),
+             c(2,3), c(4,4)), bottom=textGrob('Fiverr Niche Analysis (https://www.fiverr.com/jens_laufer/do-a-niche-analysis-on-fiverr)', gp = gpar(fontsize = 20)))
+```
+
+
+
