@@ -1,9 +1,14 @@
 ---
 title: "Is it possible to make a million on Fiverr?"
 subtitle: "Insights from analysing Fiverr data to answer the question"
+categories:
+  - blog
+image: ishan-seefromthesky-562756-unsplash.png
+image_caption: "Photo by Ishan @seefromthesky on Unsplash"
 output: 
   html_document: default
   md_document: default
+  
 params:
   # filter: '{"keyword": {"$in": ["airbnb", "alibaba", "amazon", "amazon fba", "data analysis", "data science", "fiverr", "java programming", "market analysis", "market research", "passive income", "python programming", "r programming", "reporting" , "scraping", "six figures"]}}'
   filter: '{"keyword": {"$in": ["Voiceover", "Copywriting", "Resume Writing", "Press release Writing", "Video Marketing", "Website Building", "Mobile App Development", "Graphic Design", "seo"]}}'
@@ -120,7 +125,7 @@ est.total.revenue.plot <- function(df,ratio){
 
 
 
-The story of [How a dad made almost 1 million on Fiverr](https://www.cnbc.com/2018/04/24/how-this-dad-made-almost-1-million-on-fiverr.html?__source=msn%7Cmoney%7Cinline%7Cstory%7C&par=msn&doc=105300315) inspired me to analyse real data from Fiverr to gain insights on how realistic a story like this is. First, I was looking for more stories from people to get an idea of what they earn and what they are doing. 
+The story of [How a dad made almost 1 million on Fiverr](https://www.cnbc.com/2018/04/24/how-this-dad-made-almost-1-million-on-fiverr.html?__source=msn%7Cmoney%7Cinline%7Cstory%7C&par=msn&doc=105300315) inspired us to analyse real data from Fiverr to gain insights on how realistic a story like this is. First, we were looking for more stories from people to get an idea of what they earn and what they are doing. 
 
 | Seller | Type of service | Income |
 | ------ | --------------- | -----: |
@@ -133,11 +138,11 @@ The story of [How a dad made almost 1 million on Fiverr](https://www.cnbc.com/20
 
 These numbers are impressing! It looks like an attractive business model.
 
-## Are they exaggerators?
+## Are these sellers exaggerating?
 
-We are in a world of self-marketing, everybody wants to get on page one with his story to push his business. Why not cheat a bit with the numbers? I will fetch real data from Fiverr to get an idea of how realistic the numbers are.
+We are in a world of self-marketing, everybody wants to get on page one with his story to push his business. Why not cheat a bit with the numbers? We fetched real data from Fiverr to get an idea of how realistic the numbers are.
 
-First, I identified the usernames of the sellers, which was not difficult. Then I extracted the data for the gigs these sellers are offering. You can retrieve the price, and you can see the number of reviews, which lets you calculate a metric "reviewed revenue". Afterwards, you can add up the revenue for all gigs somebody is offering to get an impression of the seller's total revenue.
+First, we identified the usernames of the sellers, which was not difficult. Then we extracted the data for the gigs these sellers are offering. You can retrieve the price, and you can see the number of reviews, which lets you calculate a metric "reviewed revenue". Afterwards, you can add up the revenue for all gigs somebody is offering to get an impression of the seller's total revenue.
 
 
 
@@ -149,9 +154,9 @@ The reviewed revenue of David Feldman, Joel Young and Alex Fasulo is lower than 
 
 So our first impression could be: We caught all of them on lying and David, Joel and Alex are terrible exaggerators.
 
-This view is a bit too simplified. I was curious what's the rated order ratio is on Fiverr. I found a post on the Fiverr forum on it: [What is your Rated Orders percentage?](https://forum.fiverr.com/t/what-is-your-rated-orders-percentage/143919/6) and I asked the sellers on Reddit for their [rated order ratio](https://www.reddit.com/r/Fiverr/comments/b8h1pn/help_what_is_your_rated_order_ratio/). People report ratios at around 80%, which seems very high to me. I decided to take a value of about 50%. With this ratio the revenues of Alex, Joel and David seem realistic (no liers). It means on the other hand that Redd, Levi and Charmaine are making much money than they reported. 
+This view is a bit too simplified. We were curious what's the rated order ratio is on Fiverr. We found a post on the Fiverr forum on it: [What is your Rated Orders percentage?](https://forum.fiverr.com/t/what-is-your-rated-orders-percentage/143919/6) and we asked the sellers on Reddit for their [rated order ratio](https://www.reddit.com/r/Fiverr/comments/b8h1pn/help_what_is_your_rated_order_ratio/). People report ratios at around 80%, which seemed very high to us. We decided to take a value of about 50%. With this ratio the revenues of Alex, Joel and David seem realistic (no liers). It means on the other hand that Redd, Levi and Charmaine are making much money than they reported. 
 
-I calculated the realistic revenue numbers for the sellers with a rated order ratio of 0.5
+We calculated the realistic revenue numbers for the sellers with a rated order ratio of 0.5
 
 ```{r}
 est.total.revenue.plot(example.top.seller.revenue.df, 0.5)
@@ -162,7 +167,7 @@ With this estimation, we can see that Joel Young and Charmaine Pocek are most pr
 
 ## What gigs?
 
-What gigs are making this amount of money? We look for the Top 3 gigs from each of our friends. 
+What gigs are making this amount of money? We evaluated the Top 3 gigs for each of our friends. 
 
 
 
@@ -172,7 +177,7 @@ sellers.top.gigs.plot
 
 It impresses that Charnine Pocek 'I will Create An Entry Level Resume, Cv, Cover letter, Or LinkedIn' made at least 500,000. Her 'I will Upgrade A Resume, Cv, Cover letter, Or LinkedIn" gig made over 250,000 so far. Joel Young's 'I Will Create A Whiteboard Animation Video' filled his bank account with at least 350,000. Redd Horrocks 'I will Record A Quality Voiceover, British Or American Accent' made over 200,000 so far, as well as Levi Newman's 'I Will Create A Professional Amazon Product Listing Audio File'.
 
-This unbelievable: One single gig is making over 500,000.
+This is unbelievable: One single gig is making over 500,000.
 
 But is this realistic to everybody of us?
 
@@ -180,7 +185,7 @@ But is this realistic to everybody of us?
 
 Can everybody make 500k  with one single Gig?
 
-I analysed `r dim(all.gigs)[1]` Gigs in `r num.niches` niches to answer this question:
+We analysed `r dim(all.gigs)[1]` Gigs in `r num.niches` niches to answer this question:
 
 Are there other gigs that made over a 100,000 reviewed revenue?
 
