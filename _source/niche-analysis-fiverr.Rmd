@@ -51,15 +51,19 @@ filter <- glue('{{"keyword": {{"$in": [{keywords}]}}}}')
 ```
 
 ```{r}
-niches.df <- get.niches(DATABASE, MONGO_URI, filter)
-products.df <- get.products(DATABASE, MONGO_URI, filter)
+niches.df <- get.niches(DATABASE, MONGO_URI, filter) %>%
+  mutate(overall.score.bin=cut(overall_score, breaks=4),
+        market.entry.barrier.score.bin=cut(market_entry_barrier_score, breaks=4),
+        competition.score.bin=cut(competition_score, breaks=4))
+products.df <- get.products(DATABASE, MONGO_URI, filter) %>%
+  inner_join(niches.df,by='keyword')
 ```
 
 
 ```{r}
 plot.gigs <- function(df){
   plot <- df %>%
-  ggplot(aes(x = reorder(title.2,revenue), y=revenue, fill=keyword)) +
+  ggplot(aes(x = reorder(title.2,revenue), y=revenue, fill=competition.score.bin)) +
   geom_bar(stat='identity') +
   scale_fill_tableau(palette = 'Tableau 20') +
   scale_y_log10(labels=comma)+
@@ -93,15 +97,34 @@ plot.gigs(products.df %>%
 ```
 
 ```{r}
-products.df %>%
-  distinct(gig_id, .keep_all = T) %>%
+products.df.table <- function(df, gig.ids=NULL, limit=NULL){
+
+  result <- df %>% 
+    distinct(gig_id, .keep_all = T) %>%
   arrange(desc(revenue)) %>%
   mutate(link=glue('<a href="{url}">{title}</a>'),
-         image=glue('<img src="{img}">')
-         ) %>%
-  filter(gig_id %in% interesting.gigs) %>%
-  select(link, image) %>% kable()
+         image=glue('<a href="{url}"><img src="{img}"></a>')
+         ) 
+  if(!is.null(gig.ids)){
+    result <- result %>% filter(gig_id %in% gig.ids) 
+  }
+  if(!is.null(limit)){
+    result <- result %>% head(limit)
+  }
+  result <- result %>% select(link, seller, image, revenue) %>%
+  kable()
+  return(result)
+}
 ```
 
 
+```{r}
+products.df.table(products.df, interesting.gigs) 
+```
+
+
+
+```{r}
+products.df.table(products.df, limit=25) 
+```
 
