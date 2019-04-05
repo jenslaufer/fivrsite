@@ -4,6 +4,7 @@
 
 
 
+
 library(mongolite)
 library(gridExtra)
 library(ggthemes)
@@ -19,14 +20,15 @@ library(DecisionAnalysis)
 
 
 get.products <-  function(database, mongo_uri, filter = {
-}) {
+  
+}, datafile='c:/temp/data.csv') {
   products.df <- tryCatch({
     products.col <- mongo("products", database, url = mongo_uri)
     products.df <- products.col$find(filter) %>% as_tibble()
-    products.df %>% write_csv(DATA_FILE)
+    products.df %>% write_csv(datafile)
   },
   error = function(e) {
-    return(read_csv(DATA_FILE))
+    return(read_csv(datafile))
   })
   
   
@@ -38,6 +40,7 @@ get.products <-  function(database, mongo_uri, filter = {
       title_length = nchar(title)
     ) %>%
     mutate(
+      gig_id = as.integer(gig_id),
       seller_level_2 = if_else(
         seller_level == 'Top Rated Seller' |
           seller_level == 'Level 2 Seller' |
@@ -53,6 +56,7 @@ get.products <-  function(database, mongo_uri, filter = {
 }
 
 get.seller.levels <-  function(database, mongo_uri, filter = {
+  
 }) {
   seller.levels.df <-
     get.products(database, mongo_uri, filter) %>% select(keyword, seller_level) %>%
@@ -67,6 +71,7 @@ get.seller.levels <-  function(database, mongo_uri, filter = {
 
 get.market.entry.data.1 <-
   function(database, mongo_uri, filter = {
+    
   }) {
     products.df <- get.products(database, mongo_uri, filter)
     
@@ -94,6 +99,7 @@ get.market.entry.data.1 <-
 
 get.market.entry.data.2 <-
   function(database, mongo_uri, filter = {
+    
   }) {
     products.df <- get.products(database, mongo_uri, filter)
     market.entry.barrier.data.2 <- products.df %>%
@@ -115,6 +121,7 @@ get.market.entry.data.2 <-
 
 get.market.entry.data.3 <-
   function(database, mongo_uri, filter = {
+    
   }) {
     products.df <- get.products(database, mongo_uri, filter)
     market.entry.barrier.data.3 <- products.df %>%
@@ -131,6 +138,7 @@ get.market.entry.data.3 <-
   }
 
 get.niches <- function(database, mongo_uri, filter = {
+  
 }) {
   niches.df <-
     get.products(database, mongo_uri, filter) %>% select(keyword,
