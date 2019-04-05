@@ -63,7 +63,7 @@ products.df <- get.products(DATABASE, MONGO_URI, filter) %>%
 ```{r}
 plot.gigs <- function(df){
   plot <- df %>%
-  ggplot(aes(x = reorder(title.2,revenue), y=revenue, fill=competition.score.bin)) +
+  ggplot(aes(x = reorder(title.2,revenue), y=revenue, fill=overall.score.bin)) +
   geom_bar(stat='identity') +
   scale_fill_tableau(palette = 'Tableau 20') +
   scale_y_log10(labels=comma)+
