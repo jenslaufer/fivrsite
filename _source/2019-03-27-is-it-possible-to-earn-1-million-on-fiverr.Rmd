@@ -41,7 +41,7 @@ devtools::install_github('bbc/bbplot')
 
 
 ```{r}
-source('include/data.R',encoding = 'utf-8')
+source('include/data.R', encoding = 'utf-8')
 source('include/plots.R', encoding='utf-8')
 ```
 
@@ -57,7 +57,7 @@ example.top.seller.revenue.df <- example.top.seller.gigs.df %>% select(real_name
   summarise(total_reviewed_revenue=sum(reviewed_revenue)) %>% inner_join(reported.revenue.df) %>%
   mutate(revenue.ratio=total_reviewed_revenue/reported_revenue)
 
-all.gigs <- get.products(DATABASE, MONGO_URI, '{}')
+all.gigs <- get.products(DATABASE, MONGO_URI, '{}', "../_data/one_million.csv")
 ```
 
 
