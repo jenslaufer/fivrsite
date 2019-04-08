@@ -1,6 +1,7 @@
 
 
 
+
 extra.theme <-
   bbc_style() +
   theme(
@@ -13,10 +14,14 @@ extra.theme <-
 
 
 get.demand.plot <-
-  function(database, db_uri, filter, filename = '../assets/img/demand.png') {
-    demand <- get.niches(database, db_uri, filter) %>%
+  function(database,
+           db_uri,
+           filter,
+           filename = '../assets/img/demand.png',
+           datafile = "../_data/gigs.csv") {
+    demand <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword,-score_sum), y = score_sum),
+      geom_bar(aes(x = reorder(keyword, -score_sum), y = score_sum),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -45,8 +50,12 @@ get.demand.plot <-
   }
 
 get.supply.plot <-
-  function(database, db_uri, filter, filename = '../assets/img/supply.png') {
-    supply <- get.niches(database, db_uri, filter) %>%
+  function(database,
+           db_uri,
+           filter,
+           filename = '../assets/img/supply.png',
+           datafile = "../_data/gigs.csv") {
+    supply <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
       geom_bar(aes(x = reorder(keyword, results_count), y = results_count),
                fill = '#4E79A7',
@@ -85,8 +94,12 @@ get.supply.plot <-
 
 
 get.competition.plot <-
-  function(database, db_uri, filter, filename = '../assets/img/competition.png') {
-    competition <- get.niches(database, db_uri, filter) %>%
+  function(database,
+           db_uri,
+           filter,
+           filename = '../assets/img/competition.png',
+           datafile = "../_data/gigs.csv") {
+    competition <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
       geom_bar(aes(x = reorder(keyword, competition_index), y = competition_index),
                fill = '#4E79A7',
@@ -117,9 +130,13 @@ get.competition.plot <-
   }
 
 get.market.entry.data.1.plot <-
-  function(database, db_uri, filter, filename = '../assets/img/market_barrier_potential.png') {
+  function(database,
+           db_uri,
+           filter,
+           filename = '../assets/img/market_barrier_potential.png',
+           datafile = "../_data/gigs.csv") {
     market.entry.barrier.1 <-
-      get.market.entry.data.1(database, db_uri, filter) %>%
+      get.market.entry.data.1(database, db_uri, filter, datafile) %>%
       ggplot(aes(
         x = keyword,
         y = pct,
@@ -143,9 +160,13 @@ get.market.entry.data.1.plot <-
   }
 
 get.market.entry.data.2.plot <-
-  function(database, db_uri, filter, filename = '../assets/img/market_barrier_potential2.png') {
+  function(database,
+           db_uri,
+           filter,
+           filename = '../assets/img/market_barrier_potential2.png',
+           datafile = "../_data/gigs.csv") {
     market.entry.barrier.data.2 <-
-      get.market.entry.data.2(database, db_uri, filter)
+      get.market.entry.data.2(database, db_uri, filter, datafile)
     lev <-
       (
         market.entry.barrier.data.2 %>% filter(seller_level_2 == 'Unrated Seller') %>% arrange(pct) %>% select(keyword)
@@ -177,9 +198,13 @@ get.market.entry.data.2.plot <-
 
 
 get.market.entry.data.3.plot <-
-  function(database, db_uri, filter, filename = '../assets/img/market_barrier_potential3.png') {
+  function(database,
+           db_uri,
+           filter,
+           filename = '../assets/img/market_barrier_potential3.png',
+           datafile = "../_data/gigs.csv") {
     market.entry.barrier.data.3 <-
-      get.market.entry.data.3(database, db_uri, filter)
+      get.market.entry.data.3(database, db_uri, filter, datafile)
     lev <-
       (
         market.entry.barrier.data.3 %>% filter(seller_level_3 == 'Old') %>% arrange(desc(pct)) %>% select(keyword)
@@ -210,10 +235,15 @@ get.market.entry.data.3.plot <-
   }
 
 get.revenue.potential.plot <-
-  function(database, mongo_uri, filter, filename = '../assets/img/revenue_protential.png') {
-    revenue.potential <- get.niches(database , mongo_uri , filter) %>%
+  function(database,
+           mongo_uri,
+           filter,
+           filename = '../assets/img/revenue_protential.png',
+           datafile = "../_data/gigs.csv") {
+    revenue.potential <-
+      get.niches(database , mongo_uri , filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword,-revenue_mean), y = revenue_mean),
+      geom_bar(aes(x = reorder(keyword, -revenue_mean), y = revenue_mean),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -242,10 +272,15 @@ get.revenue.potential.plot <-
   }
 
 get.overall.score.plot <-
-  function(database, mongo_uri, filter, filename = "../assets/img/overall_score.png") {
-    overall.score <- get.niches(database , mongo_uri , filter) %>%
+  function(database,
+           mongo_uri,
+           filter,
+           filename = "../assets/img/overall_score.png",
+           datafile = "../_data/gigs.csv") {
+    overall.score <-
+      get.niches(database , mongo_uri , filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword,-overall_score), y = overall_score),
+      geom_bar(aes(x = reorder(keyword, -overall_score), y = overall_score),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
