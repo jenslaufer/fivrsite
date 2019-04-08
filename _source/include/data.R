@@ -5,6 +5,8 @@
 
 
 
+
+
 library(mongolite)
 library(gridExtra)
 library(ggthemes)
@@ -19,9 +21,12 @@ library(knitr)
 library(DecisionAnalysis)
 
 
-get.products <-  function(database, mongo_uri, filter = {
-  
-}, datafile='c:/temp/data.csv') {
+get.products <-  function(database,
+                          mongo_uri,
+                          filter = {
+                            
+                          },
+                          datafile = 'c:/temp/data.csv') {
   products.df <- tryCatch({
     products.col <- mongo("products", database, url = mongo_uri)
     products.df <- products.col$find(filter) %>% as_tibble()
@@ -55,11 +60,14 @@ get.products <-  function(database, mongo_uri, filter = {
   return(products.df)
 }
 
-get.seller.levels <-  function(database, mongo_uri, filter = {
-  
-}) {
+get.seller.levels <-  function(database,
+                               mongo_uri,
+                               filter = {
+                                 
+                               },
+                               datafile = 'c:/temp/data.csv') {
   seller.levels.df <-
-    get.products(database, mongo_uri, filter) %>% select(keyword, seller_level) %>%
+    get.products(database, mongo_uri, filter, datafile) %>% select(keyword, seller_level) %>%
     mutate(seller_level = if_else(is.na(seller_level), 'None', seller_level)) %>%
     group_by(keyword, seller_level) %>%
     tally() %>%
@@ -70,10 +78,13 @@ get.seller.levels <-  function(database, mongo_uri, filter = {
 }
 
 get.market.entry.data.1 <-
-  function(database, mongo_uri, filter = {
-    
-  }) {
-    products.df <- get.products(database, mongo_uri, filter)
+  function(database,
+           mongo_uri,
+           filter = {
+             
+           },
+           datafile = 'c:/temp/data.csv') {
+    products.df <- get.products(database, mongo_uri, filter, datafile)
     
     market.entry.barrier.data.1 <- products.df %>%
       mutate(seller_level = factor(replace_na(seller_level, 'None'),
@@ -98,10 +109,13 @@ get.market.entry.data.1 <-
 
 
 get.market.entry.data.2 <-
-  function(database, mongo_uri, filter = {
-    
-  }) {
-    products.df <- get.products(database, mongo_uri, filter)
+  function(database,
+           mongo_uri,
+           filter = {
+             
+           },
+           datafile = 'c:/temp/data.csv') {
+    products.df <- get.products(database, mongo_uri, filter, datafile)
     market.entry.barrier.data.2 <- products.df %>%
       mutate(seller_level_2 = factor(seller_level_2,
                                      levels = rev(c(
@@ -120,10 +134,13 @@ get.market.entry.data.2 <-
   }
 
 get.market.entry.data.3 <-
-  function(database, mongo_uri, filter = {
-    
-  }) {
-    products.df <- get.products(database, mongo_uri, filter)
+  function(database,
+           mongo_uri,
+           filter = {
+             
+           },
+           datafile = 'c:/temp/data.csv') {
+    products.df <- get.products(database, mongo_uri, filter, datafile)
     market.entry.barrier.data.3 <- products.df %>%
       mutate(seller_level_3 = factor(seller_level_3,
                                      levels = rev(c('New', 'Old')))) %>%
@@ -137,17 +154,20 @@ get.market.entry.data.3 <-
     return(market.entry.barrier.data.3)
   }
 
-get.niches <- function(database, mongo_uri, filter = {
-  
-}) {
+get.niches <- function(database,
+                       mongo_uri,
+                       filter = {
+                         
+                       },
+                       datafile = 'c:/temp/data.csv') {
   niches.df <-
-    get.products(database, mongo_uri, filter) %>% select(keyword,
-                                                         price_start,
-                                                         score,
-                                                         score_num,
-                                                         seller_level,
-                                                         results_count,
-                                                         revenue) %>%
+    get.products(database, mongo_uri, filter, datafile) %>% select(keyword,
+                                                                   price_start,
+                                                                   score,
+                                                                   score_num,
+                                                                   seller_level,
+                                                                   results_count,
+                                                                   revenue) %>%
     group_by(keyword) %>%
     summarise(
       price_start_median = median(price_start, na.rm = T),
