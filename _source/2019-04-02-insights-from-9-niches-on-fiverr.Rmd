@@ -91,6 +91,7 @@ get.supply.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
 ## Competition
 
 We mix the demand and supply to get an idea of how much competition is in the niche markets. You can see something we saw already before; there is not that much competition in the market for copywriters and for Video marketers, which is unexpected. On the other, the market for "Mobile App Developers" is very tough. 
+
 ```{r}
 
 get.competition.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
