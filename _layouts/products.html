@@ -1,0 +1,8 @@
+---
+layout: archive
+---
+
+<h1>Our Products</h1>
+{% for product in site.products %}
+<p><a href="{{ product.url }}{{ product.url }}">{{ product.title }}</a></p>
+{% endfor %}
