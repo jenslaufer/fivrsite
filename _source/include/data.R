@@ -26,7 +26,7 @@ get.products <-  function(database,
                           filter = {
                             
                           },
-                          datafile = 'c:/temp/data.csv') {
+                          datafile = '/tmp/data.csv') {
   products.df <- tryCatch({
     products.col <- mongo("products", database, url = mongo_uri)
     products.df <- products.col$find(filter) %>% as_tibble()
@@ -65,7 +65,7 @@ get.seller.levels <-  function(database,
                                filter = {
                                  
                                },
-                               datafile = 'c:/temp/data.csv') {
+                               datafile = '/tmp/data.csv') {
   seller.levels.df <-
     get.products(database, mongo_uri, filter, datafile) %>% select(keyword, seller_level) %>%
     mutate(seller_level = if_else(is.na(seller_level), 'None', seller_level)) %>%
@@ -83,7 +83,7 @@ get.market.entry.data.1 <-
            filter = {
              
            },
-           datafile = 'c:/temp/data.csv') {
+           datafile = '/tmp/data.csv') {
     products.df <- get.products(database, mongo_uri, filter, datafile)
     
     market.entry.barrier.data.1 <- products.df %>%
@@ -114,7 +114,7 @@ get.market.entry.data.2 <-
            filter = {
              
            },
-           datafile = 'c:/temp/data.csv') {
+           datafile = '/tmp/data.csv') {
     products.df <- get.products(database, mongo_uri, filter, datafile)
     market.entry.barrier.data.2 <- products.df %>%
       mutate(seller_level_2 = factor(seller_level_2,
@@ -139,7 +139,7 @@ get.market.entry.data.3 <-
            filter = {
              
            },
-           datafile = 'c:/temp/data.csv') {
+           datafile = '/tmp/data.csv') {
     products.df <- get.products(database, mongo_uri, filter, datafile)
     market.entry.barrier.data.3 <- products.df %>%
       mutate(seller_level_3 = factor(seller_level_3,
@@ -159,7 +159,7 @@ get.niches <- function(database,
                        filter = {
                          
                        },
-                       datafile = 'c:/temp/data.csv') {
+                       datafile = '/tmp/data.csv') {
   niches.df <-
     get.products(database, mongo_uri, filter, datafile) %>% select(keyword,
                                                                    price_start,
