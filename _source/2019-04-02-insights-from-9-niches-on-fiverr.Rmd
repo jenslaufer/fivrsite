@@ -34,7 +34,7 @@ devtools::install_github('bbc/bbplot')
 
 
 ```{r}
-source('include/data.R',encoding = 'utf-8')
+source('include/data.R', encoding = 'utf-8')
 source('include/plots.R', encoding='utf-8')
 ```
 
@@ -124,7 +124,7 @@ get.overall.score.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
 
 ```{r, fig.width=20, fig.height=35, eval=F}
 grid.arrange(revenue.potential, competition, market.entry.barrier.2, overall.score,layout_matrix=rbind(c(1,1),
-             c(2,3), c(4,4)), bottom=textGrob('Fiverr Niche Analysis (https://www.fiverr.com/jens_laufer/do-a-niche-analysis-on-fiverr)', gp = gpar(fontsize = 20)))
+             c(2,3), c(4,4)), bottom=textGrob('Fiverr Niche Analysis (https://www.fiverr.com/jens_laufer/do-a-niche-analysis-on-fiverr)', gp = gpar(fontsize = 20))) 
 ```
 
 
