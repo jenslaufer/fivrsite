@@ -2,17 +2,20 @@
 
 #benefit-overview {
     padding-bottom: 1em;
-    
+    background-color:#F2F3F3;
 }
 
 #benefit-overview li{
     font-size: 1.3em;
 }
 
-#benefit-overview p{
+#benefit-overview>p{
     margin-top: 1.5em;
     margin-bottom: 0.8em;
     text-align: center;
+}
+#benefit-overview>form{
+    background-color:#F2F3F3;
 }
 
 #hero-shot {
@@ -38,9 +41,10 @@
 }
 
 .cta-form>p {
-    margin-top: 0;
+    margin-top: 0.5em;
     font-size: 0.8em;
     font-style: italic;
+    font-weight: 650;
 }
 
 
