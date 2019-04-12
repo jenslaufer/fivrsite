@@ -5,8 +5,6 @@ subtitle: ""
 output: 
   html_document: default
   md_document: default
-params:
-  filter: '{"keyword": {"$in": ["Voiceover", "Copywriting", "Resume Writing", "Press release Writing", "Video Marketing", "Website Building", "Mobile App Development", "Graphic Design", "seo"]}}'
 ---
 
 ```{r setup, include=FALSE}
@@ -24,6 +22,7 @@ label.color <- "black"
 arrow.color <- "#BAB0AC"
 label.size <- 7
 DATA_FILE <- '../_data/niche_insights.csv'
+filter <- '{"keyword": {"$in": ["Voiceover", "Copywriting", "Resume Writing", "Press release Writing", "Video Marketing", "Website Building", "Mobile App Development", "Graphic Design", "seo"]}}'
 ```
 
 ```{r}
@@ -57,7 +56,7 @@ We entered the numbers game for these niches:
 We counted the total number of reviews on the first search page to get an idea of the demand. "Voiceover" has the highest demand followed by "Graphic Design" and by "SEO". The demand for "Mobile App Development", "Video Marketing" and "Press Release Writing" is much lower. It doesn't mean that these niches are uninteresting because there might be room for new Gigs. It's surprising that the demand for "Mobile App Development" is so low; we thought that Fiverr is the to-go-platform for programming tasks.
 
 ```{r}
-get.demand.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
+get.demand.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 ```
 
 
@@ -67,7 +66,7 @@ get.demand.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
 We aggregated a new metric for the revenue potential. We multiplied the starting price of a gig with its number of reviews.  It is not an exact estimation of what you can earn, but the metric lets us compare the revenue potential of the niches. Sellers offering "SEO", "Voiceover" and "Website Building" seem to make the most money. It's surprising that sellers offering "Graphic Design" are making much less money although there was a high demand for it. The starting prices are low here. It could be that there is much competition in this niche. On the other hand  website builders make good money. Although the demand is not so high, you can charge more in this niche.
 
 ```{r}
-get.revenue.potential.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
+get.revenue.potential.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 ```
 
 
@@ -78,7 +77,7 @@ We checked the supply for the niches by taking the number of Gigs for the niche 
 
 ```{r}
 
-get.supply.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
+get.supply.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 ```
 
 ## Competition
@@ -87,7 +86,7 @@ We mix the demand and supply to get an idea of how much competition is in the ni
 
 ```{r}
 
-get.competition.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
+get.competition.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 ```
 
 ## Market Entry Barrier
@@ -97,7 +96,7 @@ Another metric is the entry market barrier, which describes how difficult it is 
 The barrier to enter the market is the easiest for "Press Release Writing" and "Mobile App Development". It's very interesting that it seems easy to enter the "Website Building"-market, which has good revenue potential. On the one hand, it is but very difficult to get into "Graphic Design".
 
 ```{r}
-get.market.entry.data.2.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
+get.market.entry.data.2.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 ```
 
 
@@ -109,7 +108,7 @@ We created an overall rank to combine the metrics revenue potential, competition
 
 
 ```{r}
-get.overall.score.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE)
+get.overall.score.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 ```
 
 

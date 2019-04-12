@@ -1,8 +1,3 @@
-
-
-
-
-
 extra.theme <-
   bbc_style() +
   theme(
@@ -18,11 +13,11 @@ get.demand.plot <-
   function(database,
            db_uri,
            filter,
-           filename = '../assets/img/demand.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     demand <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword,-score_sum), y = score_sum),
+      geom_bar(aes(x = reorder(keyword, -score_sum), y = score_sum),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -46,7 +41,10 @@ get.demand.plot <-
         size = 7
       ) + extra.theme
     
-    demand %>% ggsave(filename = filename)
+    if (!is.null(filename)) {
+      demand %>% ggsave(filename = filename)
+    }
+    
     return(demand)
   }
 
@@ -54,7 +52,7 @@ get.supply.plot <-
   function(database,
            db_uri,
            filter,
-           filename = '../assets/img/supply.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     supply <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
@@ -89,7 +87,10 @@ get.supply.plot <-
         ymax = 0.6 * min(mtcars$wt)
       ) + extra.theme
     
-    supply %>% ggsave(filename = filename)
+    if (!is.null(filename)) {
+      supply %>% ggsave(filename = filename)
+    }
+    
     return(supply)
   }
 
@@ -98,7 +99,7 @@ get.competition.plot <-
   function(database,
            db_uri,
            filter,
-           filename = '../assets/img/competition.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     competition <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
@@ -126,7 +127,10 @@ get.competition.plot <-
         size = 7
       ) + extra.theme
     
-    competition %>% ggsave(filename = filename)
+    if (!is.null(filename)) {
+      competition %>% ggsave(filename = filename)
+    }
+    
     return(competition)
   }
 
@@ -134,7 +138,7 @@ get.market.entry.data.1.plot <-
   function(database,
            db_uri,
            filter,
-           filename = '../assets/img/market_barrier_potential.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     market.entry.barrier.1 <-
       get.market.entry.data.1(database, db_uri, filter, datafile) %>%
@@ -156,7 +160,10 @@ get.market.entry.data.1.plot <-
         axis.title.x = element_blank()
       )
     
-    market.entry.barrier.1 %>% ggsave(filename = filename)
+    if (!is.null(filename)) {
+      market.entry.barrier.1 %>% ggsave(filename = filename)
+    }
+    
     return(market.entry.barrier.1)
   }
 
@@ -164,7 +171,7 @@ get.market.entry.data.2.plot <-
   function(database,
            db_uri,
            filter,
-           filename = '../assets/img/market_barrier_potential2.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     market.entry.barrier.data.2 <-
       get.market.entry.data.2(database, db_uri, filter, datafile)
@@ -193,7 +200,11 @@ get.market.entry.data.2.plot <-
         axis.title.x = element_blank()
       )
     
-    market.entry.barrier.2 %>% ggsave(filename = filename)
+    
+    if (!is.null(filename)) {
+      market.entry.barrier.2 %>% ggsave(filename = filename)
+    }
+    
     return(market.entry.barrier.2)
   }
 
@@ -202,7 +213,7 @@ get.market.entry.data.3.plot <-
   function(database,
            db_uri,
            filter,
-           filename = '../assets/img/market_barrier_potential3.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     market.entry.barrier.data.3 <-
       get.market.entry.data.3(database, db_uri, filter, datafile)
@@ -231,7 +242,10 @@ get.market.entry.data.3.plot <-
         axis.title.x = element_blank()
       )
     
-    market.entry.barrier.3 %>% ggsave(filename = filename)
+    if (!is.null(filename)) {
+      market.entry.barrier.3 %>% ggsave(filename = filename)
+    }
+    
     return(market.entry.barrier.3)
   }
 
@@ -239,12 +253,12 @@ get.revenue.potential.plot <-
   function(database,
            mongo_uri,
            filter,
-           filename = '../assets/img/revenue_protential.png',
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     revenue.potential <-
       get.niches(database , mongo_uri , filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword,-revenue_mean), y = revenue_mean),
+      geom_bar(aes(x = reorder(keyword, -revenue_mean), y = revenue_mean),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -268,7 +282,10 @@ get.revenue.potential.plot <-
         size = 7
       ) + extra.theme
     
-    revenue.potential %>% ggsave(filename = filename)
+    if (!is.null(filename)) {
+      revenue.potential %>% ggsave(filename = filename)
+    }
+    
     return(revenue.potential)
   }
 
@@ -276,12 +293,12 @@ get.overall.score.plot <-
   function(database,
            mongo_uri,
            filter,
-           filename = "../assets/img/overall_score.png",
+           filename = NULL,
            datafile = '/tmp/data.csv') {
     overall.score <-
       get.niches(database , mongo_uri , filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword,-overall_score), y = overall_score),
+      geom_bar(aes(x = reorder(keyword, -overall_score), y = overall_score),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -305,7 +322,9 @@ get.overall.score.plot <-
         size = 7
       ) + extra.theme
     
+    if (!is.null(filename)) {
+      overall.score %>% ggsave(filename = filename)
+    }
     
-    overall.score %>% ggsave(filename = filename)
     return(overall.score)
   }
