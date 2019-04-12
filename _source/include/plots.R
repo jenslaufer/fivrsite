@@ -19,6 +19,7 @@ get.demand.plot <-
            filter,
            filename = '../assets/img/demand.png',
            datafile = '/tmp/data.csv') {
+    print(datafile)
     demand <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
       geom_bar(aes(x = reorder(keyword, -score_sum), y = score_sum),

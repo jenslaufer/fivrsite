@@ -237,6 +237,10 @@ compress_html:
   ignore:
     envs: development
 
+# Collections
+collections:
+  products:
+    output: true
 
 # Defaults
 defaults:
@@ -251,3 +255,9 @@ defaults:
       comments: # true
       share: true
       related: true
+  - scope:
+      path: ""
+      type: products
+    values:
+      layout: single
+  
