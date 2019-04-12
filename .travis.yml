@@ -6,6 +6,7 @@ branches:
   only: source
 
 script:
+  - Rscript -e 'devtools::install_github("bbc/bbplot")'
   - Rscript -e 'servr:::knit_maybe(c(".", "_source", "_posts"), c(".", "_posts", "_posts"), "build.R", "jekyll")'
 
 deploy:

@@ -27,12 +27,6 @@ DATA_FILE <- '../_data/niche_insights.csv'
 ```
 
 ```{r}
-devtools::install_github('bbc/bbplot')
-```
-
-
-
-```{r}
 source('include/data.R', encoding = 'utf-8')
 source('include/plots.R', encoding='utf-8')
 ```
