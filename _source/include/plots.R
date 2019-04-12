@@ -2,6 +2,7 @@
 
 
 
+
 extra.theme <-
   bbc_style() +
   theme(
@@ -19,10 +20,9 @@ get.demand.plot <-
            filter,
            filename = '../assets/img/demand.png',
            datafile = '/tmp/data.csv') {
-    print(datafile)
     demand <- get.niches(database, db_uri, filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword, -score_sum), y = score_sum),
+      geom_bar(aes(x = reorder(keyword,-score_sum), y = score_sum),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -244,7 +244,7 @@ get.revenue.potential.plot <-
     revenue.potential <-
       get.niches(database , mongo_uri , filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword, -revenue_mean), y = revenue_mean),
+      geom_bar(aes(x = reorder(keyword,-revenue_mean), y = revenue_mean),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
@@ -281,7 +281,7 @@ get.overall.score.plot <-
     overall.score <-
       get.niches(database , mongo_uri , filter, datafile) %>%
       ggplot() +
-      geom_bar(aes(x = reorder(keyword, -overall_score), y = overall_score),
+      geom_bar(aes(x = reorder(keyword,-overall_score), y = overall_score),
                fill = '#4E79A7',
                stat = 'identity') +
       labs(
