@@ -3,7 +3,7 @@ title: "Is it possible to make a million on Fiverr?"
 subtitle: "Insights from analysing Fiverr data to answer the question"
 categories:
   - blog
-image: ishan-seefromthesky-562756-unsplash.png
+image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,w_456/v1554277064/ishan-seefromthesky-562756-unsplash.jpg
 image_caption: "Photo by Ishan @seefromthesky on Unsplash"
 output: 
   html_document: default
