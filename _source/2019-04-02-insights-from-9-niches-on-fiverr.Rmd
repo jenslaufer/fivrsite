@@ -1,7 +1,7 @@
 ---
 title: "Case Study: Insights from Analysing 9 Niches on Fiverr"
 subtitle: ""
-image: 9niches.jpg
+image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,w_456/v1555067614/9niches.jpg
 image_caption: "Photo by HENCE THE BOOM on Unsplash"
 output: 
   html_document: default
