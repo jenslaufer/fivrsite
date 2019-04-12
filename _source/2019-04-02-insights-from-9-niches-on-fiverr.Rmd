@@ -116,8 +116,13 @@ get.overall.score.plot(DATABASE, MONGO_URI, filter, datafile=DATA_FILE)
 
 
 ```{r, fig.width=20, fig.height=35, eval=F}
-grid.arrange(revenue.potential, competition, market.entry.barrier.2, overall.score,layout_matrix=rbind(c(1,1),
-             c(2,3), c(4,4)), bottom=textGrob('Fiverr Niche Analysis (https://www.fiverr.com/jens_laufer/do-a-niche-analysis-on-fiverr)', gp = gpar(fontsize = 20))) 
+
+grid.arrange(get.revenue.potential.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE), 
+             get.competition.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE), 
+             get.market.entry.data.2.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE), 
+             get.overall.score.plot(DATABASE, MONGO_URI, params$filter, datafile=DATA_FILE),
+             layout_matrix=rbind(c(1,1),
+             c(2,3), c(4,4)), bottom=textGrob('Fiverr Niche Analysis (https://insights5.com/products/fiverr-niche-analysis.html)', gp = gpar(fontsize = 20))) 
 ```
 
 
