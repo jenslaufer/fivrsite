@@ -177,10 +177,11 @@ get.niches <- function(database,
       competition_index = results_count / score_sum
     )  %>%
     arrange(desc(demand_supply_index)) %>%
-    inner_join(get.seller.levels(database, mongo_uri, datafile=datafile), by = 'keyword') %>%
+    inner_join(get.seller.levels(database, mongo_uri, datafile = datafile),
+               by = 'keyword') %>%
     inner_join(
-      get.market.entry.data.2(database, mongo_uri, datafile=datafile) %>% filter(seller_level_2 == 'Unrated Seller') %>% select(keyword, pct) %>% rename(unrated_seller_ratio =
-                                                                                                                                        pct)
+      get.market.entry.data.2(database, mongo_uri, datafile = datafile) %>% filter(seller_level_2 == 'Unrated Seller') %>% select(keyword, pct) %>% rename(unrated_seller_ratio =
+                                                                                                                                                             pct)
     ) %>%
     mutate(
       competition_score = SAVF_exp_score(

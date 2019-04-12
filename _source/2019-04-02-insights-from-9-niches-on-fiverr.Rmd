@@ -6,7 +6,6 @@ output:
   html_document: default
   md_document: default
 params:
-  # filter: '{"keyword": {"$in": ["airbnb", "alibaba", "amazon", "amazon fba", "data analysis", "data science", "fiverr", "java programming", "market analysis", "market research", "passive income", "python programming", "r programming", "reporting" , "scraping", "six figures"]}}'
   filter: '{"keyword": {"$in": ["Voiceover", "Copywriting", "Resume Writing", "Press release Writing", "Video Marketing", "Website Building", "Mobile App Development", "Graphic Design", "seo"]}}'
 ---
 
